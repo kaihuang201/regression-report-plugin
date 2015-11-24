@@ -66,7 +66,6 @@ public final class RegressionReportNotifier extends Notifier {
     private static final int MAX_RESULTS_PER_MAIL = 20;
     private final String recipients;
     private final boolean sendToCulprits;
-
     private final boolean attachLog;
     private final boolean whenRegression;
     private final boolean whenProgression;
@@ -118,6 +117,21 @@ public final class RegressionReportNotifier extends Notifier {
 
     public boolean getAttachLog() {
         return attachLog;
+
+    public boolean getWhenRegression() {
+        return whenRegression;
+    }
+
+    public boolean getWhenProgression() {
+        return whenProgression;
+    }
+
+    public boolean getWhenNewFailed() {
+        return whenNewFailed;
+    }
+
+    public boolean getWhenNewPassed() {
+        return whenNewPassed;
     }
 
     @Override
