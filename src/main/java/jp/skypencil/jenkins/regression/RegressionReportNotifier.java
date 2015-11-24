@@ -66,7 +66,13 @@ public final class RegressionReportNotifier extends Notifier {
     private static final int MAX_RESULTS_PER_MAIL = 20;
     private final String recipients;
     private final boolean sendToCulprits;
+
     private final boolean attachLog;
+    private final boolean whenRegression;
+    private final boolean whenProgression;
+    private final boolean whenNewFailed;
+    private final boolean whenNewPassed;
+
     private MailSender mailSender = new RegressionReportNotifier.MailSender() {
         @Override
         public void send(MimeMessage message) throws MessagingException {
@@ -74,17 +80,22 @@ public final class RegressionReportNotifier extends Notifier {
         }
     };
 
-    public RegressionReportNotifier(String recipients, boolean sendToCulprits) {
+    @DataBoundConstructor
+    public RegressionReportNotifier(
+            String recipients, 
+            boolean sendToCulprits,
+            boolean whenRegression,
+            boolean whenProgression,
+            boolean whenNewFailed,
+            boolean whenNewPassed
+            ) {
         this.recipients = recipients;
         this.sendToCulprits = sendToCulprits;
         this.attachLog = false;
-    }
-
-    @DataBoundConstructor
-    public RegressionReportNotifier(String recipients, boolean sendToCulprits, boolean attachLog) {
-        this.recipients = recipients;
-        this.sendToCulprits = sendToCulprits;
-        this.attachLog = attachLog;
+        this.whenRegression = whenRegression;
+        this.whenProgression = whenProgression;
+        this.whenNewFailed = whenNewFailed;
+        this.whenNewPassed = whenNewPassed;       
     }
 
     @VisibleForTesting
