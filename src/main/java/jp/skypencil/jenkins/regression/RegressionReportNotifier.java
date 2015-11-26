@@ -16,23 +16,19 @@ import hudson.tasks.Notifier;
 import hudson.tasks.Publisher;
 import hudson.tasks.Mailer;
 import hudson.tasks.junit.CaseResult;
-import hudson.tasks.junit.ClassResult;
-import hudson.tasks.junit.PackageResult;
 import hudson.tasks.test.AbstractTestResultAction;
-import hudson.tasks.test.AggregatedTestResultAction;
 import hudson.tasks.test.TestResult;
-import hudson.tasks.junit.TestResultAction;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
