@@ -6,6 +6,6 @@ import com.google.common.base.Function;
 class PairToFirst implements Function<Pair<CaseResult, CaseResult>, CaseResult> {
     @Override
     public CaseResult apply(Pair<CaseResult, CaseResult> input) {
-        return (CaseResult) input.first;
+        return input.first;
     }
 }
