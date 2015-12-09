@@ -23,9 +23,9 @@ public class RegressionReportHelper {
      * an object of type TestResultAction or AggregatedTestResultAction
      * @param build an AbstractBuild object from which the caller wants to get
      *      the case results.
-     * @return an ArrayList of CaseResult.
+     * @return an List of CaseResult.
      */
-    public static ArrayList<CaseResult> getAllCaseResultsForBuild(AbstractBuild build) {
+    public static List<CaseResult> getAllCaseResultsForBuild(AbstractBuild build) {
         ArrayList<CaseResult> ret = new ArrayList<CaseResult>();
         List<AbstractTestResultAction> testActions = build.getActions(AbstractTestResultAction.class);
 
@@ -36,12 +36,11 @@ public class RegressionReportHelper {
             }
             else if (testAction instanceof AggregatedTestResultAction) {
                 List<AggregatedTestResultAction.ChildReport> child_reports = ((AggregatedTestResultAction)testAction).getChildReports();
-                for(AggregatedTestResultAction.ChildReport child_report: child_reports){
+                for (AggregatedTestResultAction.ChildReport child_report: child_reports) {
                     hudson.tasks.junit.TestResult testResult = (hudson.tasks.junit.TestResult) child_report.result;
                     ret.addAll(getTestsFromTestResult(testResult));
                 }
             }
-            //Else, unsupported project type.
         }
         return ret;
     }
@@ -51,14 +50,14 @@ public class RegressionReportHelper {
      * object.
      * @param testResult a TestResult object that contains PackageResult as its
      *      children
-     * @return An ArrayList of CaseResult.
+     * @return An List of CaseResult.
      */
-    private static ArrayList<CaseResult> getTestsFromTestResult(TestResult testResult) {
+    private static List<CaseResult> getTestsFromTestResult(TestResult testResult) {
         ArrayList<CaseResult> tests = new ArrayList<CaseResult>();
         Collection<PackageResult> packageResults = testResult.getChildren();
         for (PackageResult packageResult : packageResults) {
             Collection<ClassResult> classResults = packageResult.getChildren();
-            for(ClassResult classResult : classResults) {
+            for (ClassResult classResult : classResults) {
                 Collection<CaseResult> caseResults = classResult.getChildren();
                 tests.addAll(caseResults);
             }
@@ -69,9 +68,8 @@ public class RegressionReportHelper {
 
 
     /**
-     * Given two builds thisBuild and otherBuild, returns the a list of Pairs
-     * of matching CaseResult. Each pair is of form 
-     * (CaseResultFromThisBuild, CaseResultFromThatBuild)
+     * This function returns a list of Pairs of matching CaseResult, given thisBuild and otherBuild
+     * Each pair is of form (CaseResultFromThisBuild, CaseResultFromThatBuild)
      *
      * @param thisBuild an AbstractBuild.
      * @param otherBuild another AbstractBuild, which is compared against thisBuild
@@ -80,7 +78,7 @@ public class RegressionReportHelper {
      * if a matching case result is not found in the other build, a null is used
      * instead.
      */
-    public static ArrayList<Pair<CaseResult, CaseResult>> matchTestsBetweenBuilds(AbstractBuild thisBuild, AbstractBuild otherBuild) {
+    public static List<Pair<CaseResult, CaseResult>> matchTestsBetweenBuilds(AbstractBuild thisBuild, AbstractBuild otherBuild) {
         ArrayList<CaseResult> thisResults = getAllCaseResultsForBuild(thisBuild);
         ArrayList<CaseResult> otherResults = getAllCaseResultsForBuild(otherBuild);
 
