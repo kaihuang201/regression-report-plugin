@@ -165,7 +165,6 @@ public final class RegressionReportNotifier extends Notifier {
         }
 
         logger.println("regression reporter starts now...");
-
         List<CaseResult> regressionedTests = listRegressions(testResultAction);
         
         List<Pair<CaseResult, CaseResult>> testPairs = new ArrayList<Pair<CaseResult, CaseResult>>();
@@ -175,7 +174,7 @@ public final class RegressionReportNotifier extends Notifier {
         }
 
         List<Pair<CaseResult, CaseResult>> progressionPairs = Lists.newArrayList(Iterables.filter(testPairs, new ProgressionPredicate()));
-        List<CaseResult> progressions = Lists.newArrayList(Iterables.transform(progressionPairs, new PairToFirst()));
+        List<CaseResult> progressionedTests = Lists.newArrayList(Iterables.transform(progressionPairs, new PairToFirst()));
 
         List<Pair<CaseResult, CaseResult>> newTestPairs = Lists.newArrayList(Iterables.filter(testPairs, new NewTestPredicate()));
         List<CaseResult> newTests = Lists.newArrayList(Iterables.transform(newTestPairs, new PairToFirst()));
@@ -185,7 +184,7 @@ public final class RegressionReportNotifier extends Notifier {
 
         writeToConsole(regressionedTests, listener);
         try {
-            mailReport(regressionedTests, progressions, newTestsFailed, newTestsPassed, recipients, listener, build);
+            mailReport(regressionedTests, progressionedTests, newTestsFailed, newTestsPassed, recipients, listener, build);
         } catch (MessagingException e) {
             e.printStackTrace(listener.error("failed to send mails."));
         }
@@ -227,7 +226,6 @@ public final class RegressionReportNotifier extends Notifier {
             BuildListener listener,
             AbstractBuild<?, ?> build
             ) throws MessagingException, IOException {
-
         if (
             (regressions.isEmpty() || !whenRegression) &&
             (progressions.isEmpty() || !whenProgression) &&

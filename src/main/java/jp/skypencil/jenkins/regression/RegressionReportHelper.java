@@ -23,7 +23,7 @@ public class RegressionReportHelper {
      * an object of type TestResultAction or AggregatedTestResultAction
      * @param build an AbstractBuild object from which the caller wants to get
      *      the case results.
-     * @return an List of CaseResult.
+     * @return a List of CaseResult.
      */
     public static List<CaseResult> getAllCaseResultsForBuild(AbstractBuild build) {
         ArrayList<CaseResult> ret = new ArrayList<CaseResult>();
@@ -50,7 +50,7 @@ public class RegressionReportHelper {
      * object.
      * @param testResult a TestResult object that contains PackageResult as its
      *      children
-     * @return An List of CaseResult.
+     * @return A List of CaseResult.
      */
     private static List<CaseResult> getTestsFromTestResult(TestResult testResult) {
         ArrayList<CaseResult> tests = new ArrayList<CaseResult>();
@@ -73,7 +73,7 @@ public class RegressionReportHelper {
      *
      * @param thisBuild an AbstractBuild.
      * @param otherBuild another AbstractBuild, which is compared against thisBuild
-     * @return an ArrayList of Pairs of CaseResults.Each pair is of form 
+     * @return a List of Pairs of CaseResults.Each pair is of form 
      * (CaseResultFromThisBuild, CaseResultFromThatBuild)
      * if a matching case result is not found in the other build, a null is used
      * instead.
