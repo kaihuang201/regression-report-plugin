@@ -71,7 +71,7 @@ public class RegressionReportHelperTest {
         AbstractBuild b1 = project.getBuildByNumber(1);
         AbstractBuild b2 = project.getBuildByNumber(2);
         
-        ArrayList<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b1, b2);
+        List<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b1, b2);
         assertEquals(3, myPairs.size());
     }
     
@@ -82,7 +82,7 @@ public class RegressionReportHelperTest {
         AbstractBuild b2 = project.getBuildByNumber(2);
         AbstractBuild b3 = project.getBuildByNumber(3);
         
-        ArrayList<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b2, b3);
+        List<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b2, b3);
         assertEquals(4, myPairs.size());
         Pair<CaseResult, CaseResult> lastPair = myPairs.get(3);
         assertNull(lastPair.first);
@@ -95,7 +95,7 @@ public class RegressionReportHelperTest {
         AbstractBuild b3 = project.getBuildByNumber(3);
         AbstractBuild b4 = project.getBuildByNumber(4);
         
-        ArrayList<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b3, b4);
+        List<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b3, b4);
         assertEquals(5, myPairs.size());
         Pair<CaseResult, CaseResult> lastPair = myPairs.get(4);
         assertNull(lastPair.first);
@@ -109,7 +109,7 @@ public class RegressionReportHelperTest {
         AbstractBuild b4 = project.getBuildByNumber(4);
         AbstractBuild b5 = project.getBuildByNumber(5);
         
-        ArrayList<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b4, b5);
+        List<Pair<CaseResult, CaseResult>> myPairs = RegressionReportHelper.matchTestsBetweenBuilds(b4, b5);
         assertEquals(5, myPairs.size());
         Pair<CaseResult, CaseResult> fourthPair = myPairs.get(3);
         assertTrue(fourthPair.first.isPassed());

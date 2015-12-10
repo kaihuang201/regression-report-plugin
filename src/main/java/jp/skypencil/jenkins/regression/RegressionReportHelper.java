@@ -26,7 +26,7 @@ public class RegressionReportHelper {
      * @return a List of CaseResult.
      */
     public static List<CaseResult> getAllCaseResultsForBuild(AbstractBuild build) {
-        ArrayList<CaseResult> ret = new ArrayList<CaseResult>();
+        List<CaseResult> ret = new ArrayList<CaseResult>();
         List<AbstractTestResultAction> testActions = build.getActions(AbstractTestResultAction.class);
 
         for (AbstractTestResultAction testAction : testActions) {
@@ -53,7 +53,7 @@ public class RegressionReportHelper {
      * @return A List of CaseResult.
      */
     private static List<CaseResult> getTestsFromTestResult(TestResult testResult) {
-        ArrayList<CaseResult> tests = new ArrayList<CaseResult>();
+        List<CaseResult> tests = new ArrayList<CaseResult>();
         Collection<PackageResult> packageResults = testResult.getChildren();
         for (PackageResult packageResult : packageResults) {
             Collection<ClassResult> classResults = packageResult.getChildren();
@@ -79,15 +79,15 @@ public class RegressionReportHelper {
      * instead.
      */
     public static List<Pair<CaseResult, CaseResult>> matchTestsBetweenBuilds(AbstractBuild thisBuild, AbstractBuild otherBuild) {
-        ArrayList<CaseResult> thisResults = getAllCaseResultsForBuild(thisBuild);
-        ArrayList<CaseResult> otherResults = getAllCaseResultsForBuild(otherBuild);
+        List<CaseResult> thisResults = getAllCaseResultsForBuild(thisBuild);
+        List<CaseResult> otherResults = getAllCaseResultsForBuild(otherBuild);
 
         HashMap<String, CaseResult> hmap = new HashMap<String, CaseResult>();
         for (CaseResult otherCaseResult : otherResults) {
             hmap.put(otherCaseResult.getFullName(), otherCaseResult); // add (test_name, CaseResult) to hmap
         }
 
-        ArrayList<Pair<CaseResult, CaseResult>> returnValue = new ArrayList<Pair<CaseResult, CaseResult>>();
+        List<Pair<CaseResult, CaseResult>> returnValue = new ArrayList<Pair<CaseResult, CaseResult>>();
         for (CaseResult thisCaseResult : thisResults) {
             String currTestName = thisCaseResult.getFullName();
             CaseResult otherCaseResult = null;
