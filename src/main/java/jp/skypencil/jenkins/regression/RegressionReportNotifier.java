@@ -85,6 +85,17 @@ public final class RegressionReportNotifier extends Notifier {
     public RegressionReportNotifier(String recipients, boolean sendToCulprits) {
         this.recipients = recipients;
         this.sendToCulprits = sendToCulprits;
+        this.attachLog = false;
+        this.whenRegression = true;
+        this.whenProgression = false;
+        this.whenNewFailed = false;
+        this.whenNewPassed = false;       
+    }
+
+    public RegressionReportNotifier(String recipients, boolean sendToCulprits, boolean attachLog) {
+        this.recipients = recipients;
+        this.sendToCulprits = sendToCulprits;
+        this.attachLog = attachLog;
         this.whenRegression = true;
         this.whenProgression = false;
         this.whenNewFailed = false;
@@ -95,6 +106,7 @@ public final class RegressionReportNotifier extends Notifier {
     public RegressionReportNotifier(
             String recipients, 
             boolean sendToCulprits,
+            boolean attachLog,
             boolean whenRegression,
             boolean whenProgression,
             boolean whenNewFailed,
@@ -102,7 +114,7 @@ public final class RegressionReportNotifier extends Notifier {
             ) {
         this.recipients = recipients;
         this.sendToCulprits = sendToCulprits;
-        this.attachLog = false;
+        this.attachLog = attachLog;
         this.whenRegression = whenRegression;
         this.whenProgression = whenProgression;
         this.whenNewFailed = whenNewFailed;
@@ -129,6 +141,7 @@ public final class RegressionReportNotifier extends Notifier {
 
     public boolean getAttachLog() {
         return attachLog;
+    }
 
     public boolean getWhenRegression() {
         return whenRegression;
