@@ -41,6 +41,9 @@ public class RegressionReportHelper {
                     ret.addAll(getTestsFromTestResult(testResult));
                 }
             }
+            else {
+                System.out.println("Unsupported project type.");
+            }
         }
         return ret;
     }
