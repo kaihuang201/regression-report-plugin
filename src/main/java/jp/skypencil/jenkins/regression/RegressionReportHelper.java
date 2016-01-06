@@ -49,7 +49,7 @@ public class RegressionReportHelper {
     }
 
     /**
-     * A helper fuction that returns a CaseResult from a TestReult object.
+     * A helper function that returns a CaseResult from a TestResult object.
      * @param testResult a TestResult object that contains PackageResult as its
      *      children.
      * @return A List of CaseResult.
