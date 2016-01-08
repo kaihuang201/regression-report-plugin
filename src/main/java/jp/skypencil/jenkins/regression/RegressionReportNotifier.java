@@ -103,7 +103,8 @@ public final class RegressionReportNotifier extends Notifier {
     }
 
     @DataBoundConstructor
-    public RegressionReportNotifier(String recipients, boolean sendToCulprits, boolean attachLog, boolean whenRegression, boolean whenProgression, boolean whenNewFailed, boolean whenNewPassed) {
+    public RegressionReportNotifier(String recipients, boolean sendToCulprits, boolean attachLog,
+            boolean whenRegression, boolean whenProgression, boolean whenNewFailed, boolean whenNewPassed) {
         this.recipients = recipients;
         this.sendToCulprits = sendToCulprits;
         this.attachLog = attachLog;
@@ -189,7 +190,15 @@ public final class RegressionReportNotifier extends Notifier {
 
         writeToConsole(regressionedTests, listener);
         try {
-            mailReport(regressionedTests, progressionedTests, newTestsFailed, newTestsPassed, recipients, listener, build);
+            mailReport(
+                    regressionedTests,
+                    progressionedTests,
+                    newTestsFailed, 
+                    newTestsPassed, 
+                    recipients, 
+                    listener, 
+                    build
+                );
         } catch (MessagingException e) {
             e.printStackTrace(listener.error("failed to send mails."));
         }
@@ -222,7 +231,15 @@ public final class RegressionReportNotifier extends Notifier {
         }
     }
 
-    private void mailReport(List<CaseResult> regressions, List<CaseResult> progressions, List<CaseResult> newTestsFailed, List<CaseResult> newTestsPassed, String recipients, BuildListener listener, AbstractBuild<?, ?> build) throws MessagingException, IOException {
+    private void mailReport(
+            List<CaseResult> regressions, 
+            List<CaseResult> progressions, 
+            List<CaseResult> newTestsFailed, 
+            List<CaseResult> newTestsPassed, 
+            String recipients, 
+            BuildListener listener, 
+            AbstractBuild<?, ?> build
+        ) throws MessagingException, IOException {
         if (
             (regressions.isEmpty() || !whenRegression) &&
             (progressions.isEmpty() || !whenProgression) &&

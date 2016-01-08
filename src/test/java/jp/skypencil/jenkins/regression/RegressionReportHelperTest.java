@@ -1,9 +1,16 @@
 package jp.skypencil.jenkins.regression;
 
-import static org.junit.Assert.*;
+
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.tasks.junit.CaseResult;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.skypencil.jenkins.regression.RegressionReportHelper;
+
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -11,11 +18,6 @@ import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.recipes.LocalData;
 
-import jp.skypencil.jenkins.regression.RegressionReportHelper;
-
-import hudson.tasks.junit.CaseResult;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
 
 public class RegressionReportHelperTest {
     @Rule

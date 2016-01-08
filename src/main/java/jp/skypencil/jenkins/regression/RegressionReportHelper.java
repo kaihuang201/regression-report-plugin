@@ -17,14 +17,6 @@ import hudson.tasks.junit.TestResultAction;
 
 public class RegressionReportHelper {
 
-    /** 
-     * Returns a list of CaseResults that are contained in a build. Currently this
-     * function only handles builds whose getResult return 
-     * an object of type TestResultAction or AggregatedTestResultAction
-     * @param build an AbstractBuild object from which the caller wants to get
-     *      the case results.
-     * @return a List of CaseResult.
-     */
     public static List<CaseResult> getAllCaseResultsForBuild(AbstractBuild build) {
         List<CaseResult> ret = new ArrayList<CaseResult>();
         List<AbstractTestResultAction> testActions = build.getActions(AbstractTestResultAction.class);
@@ -48,12 +40,7 @@ public class RegressionReportHelper {
         return ret;
     }
 
-    /**
-     * A helper function that returns a CaseResult from a TestResult object.
-     * @param testResult a TestResult object that contains PackageResult as its
-     *      children.
-     * @return A List of CaseResult.
-     */
+
     private static List<CaseResult> getTestsFromTestResult(TestResult testResult) {
         List<CaseResult> tests = new ArrayList<CaseResult>();
         Collection<PackageResult> packageResults = testResult.getChildren();
@@ -69,17 +56,6 @@ public class RegressionReportHelper {
     }
 
 
-    /**
-     * This function returns a list of Pairs of matching CaseResult, given thisBuild and otherBuild
-     * Each pair is of form (CaseResultFromThisBuild, CaseResultFromThatBuild)
-     *
-     * @param thisBuild an AbstractBuild.
-     * @param otherBuild another AbstractBuild, which is compared against thisBuild
-     * @return a List of Pairs of CaseResults.Each pair is of form 
-     * (CaseResultFromThisBuild, CaseResultFromThatBuild)
-     * if a matching case result is not found in the other build, a null is used
-     * instead.
-     */
     public static List<Pair<CaseResult, CaseResult>> matchTestsBetweenBuilds(AbstractBuild thisBuild, AbstractBuild otherBuild) {
         List<CaseResult> thisResults = getAllCaseResultsForBuild(thisBuild);
         List<CaseResult> otherResults = getAllCaseResultsForBuild(otherBuild);
@@ -92,11 +68,7 @@ public class RegressionReportHelper {
         List<Pair<CaseResult, CaseResult>> returnValue = new ArrayList<Pair<CaseResult, CaseResult>>();
         for (CaseResult thisCaseResult : thisResults) {
             String currTestName = thisCaseResult.getFullName();
-            CaseResult otherCaseResult = null;
-            if (hmap.containsKey(currTestName)) {
-                otherCaseResult = hmap.get(currTestName);
-                hmap.remove(currTestName);
-            }
+            CaseResult otherCaseResult = hmap.remove(currTestName);
             Pair pair = new Pair<CaseResult, CaseResult>(thisCaseResult, otherCaseResult);
             returnValue.add(pair);
         }
